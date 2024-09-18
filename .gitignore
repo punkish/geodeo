@@ -6,3 +6,6 @@ data/
 
 # executable
 geodeox
+
+# OS crap
+.DS_Store
