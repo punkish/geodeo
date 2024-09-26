@@ -1,7 +1,7 @@
 {
   "name": "geodeo",
   "scripts": {
-    "dev": "bun run --hot index.js"
+    "dev": "bun run --hot src/index.js"
   },
   "dependencies": {
     "geojson-vt": "^4.0.2",

@@ -4,8 +4,8 @@ node_modules/
 # data
 data/
 
-# executable
-geodeox
+# executables
+bin/
 
 # OS crap
 .DS_Store
