@@ -1,4 +1,10 @@
 .DS_Store
+.gitignore
+.git
+bun.lockb
+index.js
+package.json
+pm2.config.js
 CHANGELOG
 README.md
 VERSION
@@ -9,3 +15,6 @@ VERSION
 *.tif
 *.txt
 *.xml
+bin/geodeox-mac
+node_modules/
+src/

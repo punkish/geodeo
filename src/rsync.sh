@@ -14,6 +14,6 @@
 # -------- end: crontab entry --------------------------
 
 EXCLUDES="./src/exclude-rsync.txt"
-SRC="./data"
+SRC="."
 TGT="vigo:/home/punkish/Projects/geodeo"
 rsync -azvv --exclude-from=$EXCLUDES $SRC $TGT
