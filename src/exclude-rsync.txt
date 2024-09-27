@@ -1,0 +1,11 @@
+.DS_Store
+CHANGELOG
+README.md
+VERSION
+*.zip
+*.prj
+*.html
+*.tfw
+*.tif
+*.txt
+*.xml

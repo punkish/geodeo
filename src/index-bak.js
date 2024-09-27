@@ -1,13 +1,7 @@
+import { Hono } from 'hono';
 import { Database } from 'bun:sqlite';
-import { serve } from 'bun';
 
-const PORT = 3000;
-const responseOptions = {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET"
-    }
-};
+const app = new Hono();
 
 function getTileFromCache(layer, z, x, y) {
     let dbfile;
@@ -31,8 +25,8 @@ function getTileFromCache(layer, z, x, y) {
                 dbfile = 'natural_earth_2_shaded_relief.raster.mbtiles';
             }
             else {
-                data += '/NE2_HR_LC_SR';
-                dbfile = 'output.mbtiles';
+                data += '/NE2_LR_LC_SR';
+                dbfile = 'ne2_shaded_relief.raster.mbtiles';
             }
         }
         else {
@@ -40,7 +34,6 @@ function getTileFromCache(layer, z, x, y) {
         }
     }
 
-    //console.log(`${data}/${dbfile}`)
     const db = new Database(`${data}/${dbfile}`, { strict: true });
     const res = db.query(sql).get({ z, x, y });
     
@@ -62,27 +55,15 @@ function getTileFromCache(layer, z, x, y) {
     }
 }
 
-serve({
-    port: PORT,
-    async fetch(request) {
-        const { method } = request;
-        const { pathname } = new URL(request.url);
-        const pathRegexForLZXY = /^\/(\w+)\/(\d+)\/(\d+)\/(\d+)$/;
-       
-        if (method === 'GET') {
-            const match = pathname.match(pathRegexForLZXY);
-            
-            if (match) {
-                const [layer, z, x, y] = match.slice(1);
+app.get('/:layer/:z/:x/:y', (c) => {
+    const { layer, z, x, y } = c.req.param();
 
-                if (layer && z && x && y) {
-                    const tile = getTileFromCache(layer, z, x, y);
-                    return new Response(tile, responseOptions);
-                }
-            }
-        
+    return new Response(getTileFromCache(layer, z, x, y), {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET"
         }
-    },
-});
+    });
+})
 
-console.log(`Listening on http://localhost:${PORT} ...`);
+export default app
