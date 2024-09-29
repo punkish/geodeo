@@ -2,8 +2,8 @@
   "name": "geodeo",
   "scripts": {
     "dev": "bun run --hot ./src/index.js",
-    "compile-linux": "bun build --compile --target=bun-linux-x64-modern ./src/index.js --outfile ./bin/geodeox",
-    "compile-mac": "bun build --compile --target=bun-darwin-arm64 ./src/index.js --outfile ./bin/geodeox-mac"
+    "compile-linux": "bun build --compile --minify --sourcemap --target=bun-linux-x64-modern ./src/index.js --outfile ./bin/geodeox",
+    "compile-mac": "bun build --compile --minify --sourcemap --target=bun-darwin-arm64 ./src/index.js --outfile ./bin/geodeox-mac"
   },
   "dependencies": {
     "geojson-vt": "^4.0.2",
